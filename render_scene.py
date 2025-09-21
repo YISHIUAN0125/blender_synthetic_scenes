@@ -4,13 +4,6 @@ import numpy as np
 import os
 import json
 
-IN_PATH = "E:/NCU/blender_for_test/tmp/scene.blend"
-OUT_DIR = "E:/NCU/blender_for_test/tmp/blender_output"
-
-# 開啟場景
-bpy.ops.wm.open_mainfile(filepath=IN_PATH)
-os.makedirs(OUT_DIR, exist_ok=True)
-
 # Add a camera
 camera_data = bpy.data.cameras.new(name="Camera")
 camera_object = bpy.data.objects.new("Camera", camera_data)
