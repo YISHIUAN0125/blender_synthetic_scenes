@@ -17,25 +17,25 @@ input_path_gt = r"tmp\blender_output\ground_truth.json"
 vis = visualizer.Visualizer()
 pcd = vis.read_point_cloud(input_path)
 
-with open(input_path_gt, "r") as f:
-    gt_data = json.load(f)
+# with open(input_path_gt, "r") as f:
+#     gt_data = json.load(f)
 
-linesets = []
+# linesets = []
 
-print(gt_data.keys())
-for obj_name, bbox_data in gt_data.items():
-    volumetric_center = bbox_data["volumetric_center"]
-    yaw = bbox_data["heading"]
-    size = bbox_data["size"]
-    class_name = bbox_data.get("class", "default")
-    color = COLOR_TABLE.get(class_name, COLOR_TABLE["default"])
-    R = o3d.geometry.get_rotation_matrix_from_xyz((0, 0, yaw))
-    obb = o3d.geometry.OrientedBoundingBox(volumetric_center, R, size)
-    lineset = o3d.geometry.LineSet.create_from_oriented_bounding_box(obb)
-    lineset.paint_uniform_color(color)
-    linesets.append(lineset)
+# print(gt_data.keys())
+# for obj_name, bbox_data in gt_data.items():
+#     volumetric_center = bbox_data["volumetric_center"]
+#     yaw = bbox_data["heading"]
+#     size = bbox_data["size"]
+#     class_name = bbox_data.get("class", "default")
+#     color = COLOR_TABLE.get(class_name, COLOR_TABLE["default"])
+#     R = o3d.geometry.get_rotation_matrix_from_xyz((0, 0, yaw))
+#     obb = o3d.geometry.OrientedBoundingBox(volumetric_center, R, size)
+#     lineset = o3d.geometry.LineSet.create_from_oriented_bounding_box(obb)
+#     lineset.paint_uniform_color(color)
+#     linesets.append(lineset)
 
-o3d.visualization.draw_geometries([pcd]+linesets)
+o3d.visualization.draw_geometries([pcd])
 
 
 
