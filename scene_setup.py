@@ -174,9 +174,10 @@ walls_data = [
     {"name": "Wall1_copy1", "location": (-6.8, -1.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(90)), "base_obj_name": "Wall1"},
     {"name": "Wall2", "location": (-0.4, 3.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "scale": (12.93/3, 0.1, 4/3)},
     {"name": "Wall2_copy1", "location": (-0.4, -6.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "base_obj_name": "Wall2"}, # 從 Wall2 複製的
-    {"name": "Wall3", "location": (-0.9, -3, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "scale": (2, 0.1, 1.2), "stretches": [(0, -1, -2.45), (0, 1, 1.58)]},
-    {"name": "Wall4", "location": (-2, -4.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(90)), "scale": (1, 0.1, 1.2)},
-    {"name": "Wall4_copy1", "location": (-2+4.1, -4.5, 1.75), "base_obj_name": "Wall4"} # 從 Wall4 複製的
+    {"name": "Wall3", "location": (1.32, -2.91, 1.75), "rotation_euler": (0, 0, np.deg2rad(90)), "scale": (6.98/3, 0.1, 4/3) },
+    {"name": "Wall4", "location": (3.725, 0.58, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "scale": (4.81/3, 0.1, 4/3)},
+    {"name": "Wall4_copy1", "location": (3.725, -3.09, 1.75), "base_obj_name": "Wall4"}, # 從 Wall4 複製的
+    {"name": "Wall5", "location": (-1.945, 0.335, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "scale": (0.41/3, 0.41/3, 4/3)}
 ]
 
 for wall_info in walls_data:
