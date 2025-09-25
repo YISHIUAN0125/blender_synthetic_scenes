@@ -137,7 +137,7 @@ def apply_stretches(obj, stretches):
 bpy.ops.mesh.primitive_plane_add(size=3, location=(0, 0, 0))
 floor = bpy.context.active_object
 floor.name = "Floor"
-floor.scale = (2, 2, 0.005)
+floor.scale = (1, 1, 0.005)
 
 # 建立地板材質
 floor_mat = setup_principled_material(
@@ -152,9 +152,10 @@ floor.data.materials.append(floor_mat)
 
 # 地板拉伸
 floor_stretches = [
-    (0, -1, -2.9), # X軸負方向拉伸到 -2.9
-    (0, 1, 2.5),   # X軸正方向拉伸到 2.5
-    (1, -1, -3)    # Y軸負方向拉伸到 -3
+    (0, -1, -6.8), # X軸負方向
+    (0, 1, 6),   # X軸正方向
+    (1, -1, -6.4),    # Y軸負方向
+    (1, 1, 3.4)
 ]
 apply_stretches(floor, floor_stretches)
 
@@ -169,10 +170,10 @@ bsdf.inputs["Roughness"].default_value = 0.9
 
 # 牆壁數據
 walls_data = [
-    {"name": "Wall1", "location": (5, -1.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(90)), "scale": (3, 0.1, 1.2)},
-    {"name": "Wall1_copy1", "location": (-5.8, -1.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(90)), "base_obj_name": "Wall1"},
-    {"name": "Wall2", "location": (-0.4, 3, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "scale": (3.6, 0.1, 1.2)},
-    {"name": "Wall2_copy1", "location": (-0.4, -6, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "scale": (3.6, 0.1, 1.2)}, # 從 Wall2 複製的
+    {"name": "Wall1", "location": (6, -1.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(90)), "scale": (9.8/3, 0.1, 4/3)},
+    {"name": "Wall1_copy1", "location": (-6.8, -1.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(90)), "base_obj_name": "Wall1"},
+    {"name": "Wall2", "location": (-0.4, 3.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "scale": (12.93/3, 0.1, 4/3)},
+    {"name": "Wall2_copy1", "location": (-0.4, -6.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "base_obj_name": "Wall2"}, # 從 Wall2 複製的
     {"name": "Wall3", "location": (-0.9, -3, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "scale": (2, 0.1, 1.2), "stretches": [(0, -1, -2.45), (0, 1, 1.58)]},
     {"name": "Wall4", "location": (-2, -4.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(90)), "scale": (1, 0.1, 1.2)},
     {"name": "Wall4_copy1", "location": (-2+4.1, -4.5, 1.75), "base_obj_name": "Wall4"} # 從 Wall4 複製的
@@ -210,10 +211,10 @@ for wall_info in walls_data:
 
 
 # ====== Build ceiling ======
-bpy.ops.mesh.primitive_plane_add(size=3, location=(0, 0, 3.56))
+bpy.ops.mesh.primitive_plane_add(size=3, location=(0, 0, 3.8))
 ceiling = bpy.context.active_object
 ceiling.name = "Ceiling"
-ceiling.scale = (2, 2, 0.05) 
+ceiling.scale = (1, 1, 0.05) 
 
 # 建立天花板材質
 ceiling_mat = setup_principled_material(
@@ -228,29 +229,30 @@ ceiling.data.materials.append(ceiling_mat)
 
 # 天花板拉伸
 ceiling_stretches = [
-    (0, -1, -2.9),
-    (0, 1, 2.5),
-    (1, -1, -3)
+    (0, -1, -6.8), # X軸負方向
+    (0, 1, 6),   # X軸正方向
+    (1, -1, -6.4),    # Y軸負方向
+    (1, 1, 3.4)
 ]
 apply_stretches(ceiling, ceiling_stretches)
 
-# ====== Build door ======
-def build_door(wall, location, scale):
-    bpy.ops.mesh.primitive_cube_add(size=2, location=location)
-    door_hole = bpy.context.active_object
-    door_hole.name = "DoorHole"
-    door_hole.scale = scale
-    bool_mod = wall.modifiers.new(name="DoorBoolean", type='BOOLEAN')
-    bool_mod.operation = 'DIFFERENCE'
-    bool_mod.object = door_hole
-    wall.data=wall.data.copy()
-    bpy.context.view_layer.objects.active = wall
-    bpy.ops.object.modifier_apply(modifier=bool_mod.name)
+## ====== Build door ======
+#def build_door(wall, location, scale):
+#    bpy.ops.mesh.primitive_cube_add(size=2, location=location)
+#    door_hole = bpy.context.active_object
+#    door_hole.name = "DoorHole"
+#    door_hole.scale = scale
+#    bool_mod = wall.modifiers.new(name="DoorBoolean", type='BOOLEAN')
+#    bool_mod.operation = 'DIFFERENCE'
+#    bool_mod.object = door_hole
+#    wall.data=wall.data.copy()
+#    bpy.context.view_layer.objects.active = wall
+#    bpy.ops.object.modifier_apply(modifier=bool_mod.name)
 
-    bpy.data.objects.remove(door_hole, do_unlink=True)
-    
-wall = bpy.data.objects.get("Wall1")
-build_door(wall, location=(5, 1.5, 1), scale=(1, 0.8, 1))
-wall = bpy.data.objects.get("Wall3")
-build_door(wall, location=(-3, -3, 1), scale=(0.5, 0.5, 1))
-build_door(wall, location=(-1, -3, 1), scale=(0.5, 0.5, 1))
+#    bpy.data.objects.remove(door_hole, do_unlink=True)
+#    
+#wall = bpy.data.objects.get("Wall1")
+#build_door(wall, location=(5, 1.5, 1), scale=(1, 0.8, 1))
+#wall = bpy.data.objects.get("Wall3")
+#build_door(wall, location=(-3, -3, 1), scale=(0.5, 0.5, 1))
+#build_door(wall, location=(-1, -3, 1), scale=(0.5, 0.5, 1))
