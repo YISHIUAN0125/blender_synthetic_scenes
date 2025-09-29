@@ -41,6 +41,9 @@ def setup_l515_camera(cam_obj, data:dict):
     cam_obj.data.shift_x = shift_x
     cam_obj.data.shift_y = shift_y
 
+    cam_obj.data.clip_start = data["min_depth"]   # 最小 25 cm
+    cam_obj.data.clip_end   = data["max_depth"]    # 最大 9 m
+
     return cam_obj, f
 
 # Add a light 
@@ -60,7 +63,7 @@ for i, pos in enumerate(positions, start=1):
         "name" : f"Light_{i}",   # 每盞燈要有不同名字
         "type" : "AREA",
         "location" : pos,
-        "intensity" : 2000,
+        "intensity" : 200,
         "color" : (1.0, 0.8, 0.5)  # 溫暖黃光
     }
     add_light(data)
@@ -86,7 +89,9 @@ cfg = {
     "fy" : 610.131958007813,
     "fov_h" : 55.36, 
     "fov_v" : 42.94,
-    "sensor_width" : 36.0 
+    "sensor_width" : 2.47,
+    "min_depth" : 0.25,
+    "max_depth" : 9.0
 }
 
 # setup cam
