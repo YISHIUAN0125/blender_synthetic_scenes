@@ -25,6 +25,8 @@ def setup_l515_camera(cam_obj, data:dict):
     cx, cy : principal point (pixel)
     fov_h : horizontal FOV (deg)
     fov_v : vertical FOV (deg)
+    min_depth : minimum depth
+    max_depth : maximum depth
     )
     """
 
@@ -41,8 +43,8 @@ def setup_l515_camera(cam_obj, data:dict):
     cam_obj.data.shift_x = shift_x
     cam_obj.data.shift_y = shift_y
 
-    cam_obj.data.clip_start = data["min_depth"]   # 最小 25 cm
-    cam_obj.data.clip_end   = data["max_depth"]    # 最大 9 m
+    cam_obj.data.clip_start = data["min_depth"]
+    cam_obj.data.clip_end   = data["max_depth"]
 
     return cam_obj, f
 
@@ -73,8 +75,8 @@ camera_data = bpy.data.cameras.new(name="Camera")
 camera_object = bpy.data.objects.new("Camera", camera_data)
 bpy.context.scene.collection.objects.link(camera_object)
 bpy.context.scene.camera = camera_object
-camera_object.location = (2, 0, 0.5)
-camera_object.rotation_euler = (np.deg2rad(90), 0, np.deg2rad(45)) # View
+camera_object.location = (-3.32, 1.4, 0.5)
+camera_object.rotation_euler = (np.deg2rad(90), 0, np.deg2rad(0)) # View
 
 # 取得 Blender 相機
 cam = bpy.data.objects['Camera']
