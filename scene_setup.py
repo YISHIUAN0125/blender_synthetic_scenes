@@ -133,127 +133,127 @@ def apply_stretches(obj, stretches):
     for axis, direction, position in stretches:
         stretch_object_from_side(obj, axis, direction, position)
 
-# ====== Build floor ======
-bpy.ops.mesh.primitive_plane_add(size=3, location=(0, 0, 0))
-floor = bpy.context.active_object
-floor.name = "Floor"
-floor.scale = (1, 1, 0.005)
+## ====== Build floor ======
+#bpy.ops.mesh.primitive_plane_add(size=3, location=(0, 0, 0))
+#floor = bpy.context.active_object
+#floor.name = "Floor"
+#floor.scale = (1, 1, 0.005)
 
-# 建立地板材質
-floor_mat = setup_principled_material(
-    name="WoodMaterial",
-    base_color_path="//../texture/Wood092_1K-JPG/Wood092_1K-JPG_Color.jpg",
-    roughness_path="//../texture/Wood092_1K-JPG/Wood092_1K-JPG_Roughness.jpg",
-    normal_path="//../texture/Wood092_1K-JPG/Wood092_1K-JPG_NormalGL.jpg",
-    displacement_path="//../texture/Wood092_1K-JPG/Wood092_1K-JPG_Displacement.jpg",
-    normal_strength=0.8
-)
-floor.data.materials.append(floor_mat)
+## 建立地板材質
+#floor_mat = setup_principled_material(
+#    name="WoodMaterial",
+#    base_color_path="//../texture/Wood092_1K-JPG/Wood092_1K-JPG_Color.jpg",
+#    roughness_path="//../texture/Wood092_1K-JPG/Wood092_1K-JPG_Roughness.jpg",
+#    normal_path="//../texture/Wood092_1K-JPG/Wood092_1K-JPG_NormalGL.jpg",
+#    displacement_path="//../texture/Wood092_1K-JPG/Wood092_1K-JPG_Displacement.jpg",
+#    normal_strength=0.8
+#)
+#floor.data.materials.append(floor_mat)
 
-# 地板拉伸
-floor_stretches = [
-    (0, -1, -6.8), # X軸負方向
-    (0, 1, 6),   # X軸正方向
-    (1, -1, -6.4),    # Y軸負方向
-    (1, 1, 3.4)
-]
-apply_stretches(floor, floor_stretches)
+## 地板拉伸
+#floor_stretches = [
+#    (0, -1, -6.8), # X軸負方向
+#    (0, 1, 6),   # X軸正方向
+#    (1, -1, -6.4),    # Y軸負方向
+#    (1, 1, 3.4)
+#]
+#apply_stretches(floor, floor_stretches)
 
-# ====== Build walls ======
+## ====== Build walls ======
 
-# 統一牆壁材質
-wall_mat_white = bpy.data.materials.new(name="WhiteWall")
-wall_mat_white.use_nodes = True
-bsdf = wall_mat_white.node_tree.nodes["Principled BSDF"]
-bsdf.inputs["Base Color"].default_value = (1, 1, 1, 1)
-bsdf.inputs["Roughness"].default_value = 0.9
+## 統一牆壁材質
+#wall_mat_white = bpy.data.materials.new(name="WhiteWall")
+#wall_mat_white.use_nodes = True
+#bsdf = wall_mat_white.node_tree.nodes["Principled BSDF"]
+#bsdf.inputs["Base Color"].default_value = (1, 1, 1, 1)
+#bsdf.inputs["Roughness"].default_value = 0.9
 
-# 牆壁數據
-walls_data = [
-    {"name": "Wall1", "location": (6, -1.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(90)), "scale": (9.8/3, 0.1, 4/3)},
-    {"name": "Wall1_copy1", "location": (-6.8, -1.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(90)), "base_obj_name": "Wall1"},
-    {"name": "Wall2", "location": (-0.4, 3.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "scale": (12.93/3, 0.1, 4/3)},
-    {"name": "Wall2_copy1", "location": (-0.4, -6.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "base_obj_name": "Wall2"}, # 從 Wall2 複製的
-    {"name": "Wall3", "location": (1.32, -2.91, 1.75), "rotation_euler": (0, 0, np.deg2rad(90)), "scale": (6.98/3, 0.1, 4/3) },
-    {"name": "Wall4", "location": (3.725, 0.58, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "scale": (4.81/3, 0.1, 4/3)},
-    {"name": "Wall4_copy1", "location": (3.725, -3.09, 1.75), "base_obj_name": "Wall4"}, # 從 Wall4 複製的
-    {"name": "Wall5", "location": (-1.945, 0.335, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "scale": (0.41/3, 0.41/3, 4/3)}
-]
+## 牆壁數據
+#walls_data = [
+#    {"name": "Wall1", "location": (6, -1.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(90)), "scale": (9.8/3, 0.1, 4/3)},
+#    {"name": "Wall1_copy1", "location": (-6.8, -1.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(90)), "base_obj_name": "Wall1"},
+#    {"name": "Wall2", "location": (-0.4, 3.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "scale": (12.93/3, 0.1, 4/3)},
+#    {"name": "Wall2_copy1", "location": (-0.4, -6.5, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "base_obj_name": "Wall2"}, # 從 Wall2 複製的
+#    {"name": "Wall3", "location": (1.32, -2.91, 1.75), "rotation_euler": (0, 0, np.deg2rad(90)), "scale": (6.98/3, 0.1, 4/3) },
+#    {"name": "Wall4", "location": (3.725, 0.58, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "scale": (4.81/3, 0.1, 4/3)},
+#    {"name": "Wall4_copy1", "location": (3.725, -3.09, 1.75), "base_obj_name": "Wall4"}, # 從 Wall4 複製的
+#    {"name": "Wall5", "location": (-1.945, 0.335, 1.75), "rotation_euler": (0, 0, np.deg2rad(0)), "scale": (0.41/3, 0.41/3, 4/3)}
+#]
 
-for wall_info in walls_data:
-    obj_name = wall_info["name"]
-    base_obj = None
+#for wall_info in walls_data:
+#    obj_name = wall_info["name"]
+#    base_obj = None
 
-    if "base_obj_name" in wall_info: # 這是複製的牆壁
-        base_obj = bpy.data.objects.get(wall_info["base_obj_name"])
-        if base_obj:
-            new_wall = base_obj.copy()
-            new_wall.data = base_obj.data # 鏈接數據塊，而非複製
-            bpy.context.collection.objects.link(new_wall)
-            new_wall.name = obj_name
-        else:
-            print(f"Warning: Base object '{wall_info['base_obj_name']}' not found for '{obj_name}'. Skipping.")
-            continue
-    else: # 這是新創建的牆壁
-        bpy.ops.mesh.primitive_cube_add(size=3) # 初始大小無關緊要，因為會被 scale 覆蓋
-        new_wall = bpy.context.active_object
-        new_wall.name = obj_name
-        new_wall.data.materials.append(wall_mat_white)
+#    if "base_obj_name" in wall_info: # 這是複製的牆壁
+#        base_obj = bpy.data.objects.get(wall_info["base_obj_name"])
+#        if base_obj:
+#            new_wall = base_obj.copy()
+#            new_wall.data = base_obj.data # 鏈接數據塊，而非複製
+#            bpy.context.collection.objects.link(new_wall)
+#            new_wall.name = obj_name
+#        else:
+#            print(f"Warning: Base object '{wall_info['base_obj_name']}' not found for '{obj_name}'. Skipping.")
+#            continue
+#    else: # 這是新創建的牆壁
+#        bpy.ops.mesh.primitive_cube_add(size=3) # 初始大小無關緊要，因為會被 scale 覆蓋
+#        new_wall = bpy.context.active_object
+#        new_wall.name = obj_name
+#        new_wall.data.materials.append(wall_mat_white)
 
-    transformation(
-        new_wall, 
-        location=wall_info.get("location"),
-        scale=wall_info.get("scale"),
-        rotation_euler=wall_info.get("rotation_euler")
-    )
+#    transformation(
+#        new_wall, 
+#        location=wall_info.get("location"),
+#        scale=wall_info.get("scale"),
+#        rotation_euler=wall_info.get("rotation_euler")
+#    )
 
-    if "stretches" in wall_info:
-        apply_stretches(new_wall, wall_info["stretches"])
+#    if "stretches" in wall_info:
+#        apply_stretches(new_wall, wall_info["stretches"])
 
 
 # ====== Build ceiling ======
-bpy.ops.mesh.primitive_plane_add(size=3, location=(0, 0, 3.8))
-ceiling = bpy.context.active_object
-ceiling.name = "Ceiling"
-ceiling.scale = (1, 1, 0.05) 
+#bpy.ops.mesh.primitive_plane_add(size=3, location=(0, 0, 3.8))
+#ceiling = bpy.context.active_object
+#ceiling.name = "Ceiling"
+#ceiling.scale = (1, 1, 0.05) 
 
-# 建立天花板材質
-ceiling_mat = setup_principled_material(
-    name="CeilingMaterial",
-    base_color_path="//../texture/OfficeCeiling001_4K-JPG/OfficeCeiling001_4K_Color.jpg",
-    roughness_path="//../texture/OfficeCeiling001_4K-JPG/OfficeCeiling001_4K_Roughness.jpg",
-    normal_path="//../texture/OfficeCeiling001_4K-JPG/OfficeCeiling001_4K_NormalGL.jpg",
-    displacement_path="//../texture/OfficeCeiling001_4K-JPG/OfficeCeiling001_4K_Displacement.jpg",
-    normal_strength=0.8
-)
-ceiling.data.materials.append(ceiling_mat)
+## 建立天花板材質
+#ceiling_mat = setup_principled_material(
+#    name="CeilingMaterial",
+#    base_color_path="//../texture/OfficeCeiling001_4K-JPG/OfficeCeiling001_4K_Color.jpg",
+#    roughness_path="//../texture/OfficeCeiling001_4K-JPG/OfficeCeiling001_4K_Roughness.jpg",
+#    normal_path="//../texture/OfficeCeiling001_4K-JPG/OfficeCeiling001_4K_NormalGL.jpg",
+#    displacement_path="//../texture/OfficeCeiling001_4K-JPG/OfficeCeiling001_4K_Displacement.jpg",
+#    normal_strength=0.8
+#)
+#ceiling.data.materials.append(ceiling_mat)
 
-# 天花板拉伸
-ceiling_stretches = [
-    (0, -1, -6.8), # X軸負方向
-    (0, 1, 6),   # X軸正方向
-    (1, -1, -6.4),    # Y軸負方向
-    (1, 1, 3.4)
-]
-apply_stretches(ceiling, ceiling_stretches)
+## 天花板拉伸
+#ceiling_stretches = [
+#    (0, -1, -6.8), # X軸負方向
+#    (0, 1, 6),   # X軸正方向
+#    (1, -1, -6.4),    # Y軸負方向
+#    (1, 1, 3.4)
+#]
+#apply_stretches(ceiling, ceiling_stretches)
 
 ## ====== Build door ======
-#def build_door(wall, location, scale):
-#    bpy.ops.mesh.primitive_cube_add(size=2, location=location)
-#    door_hole = bpy.context.active_object
-#    door_hole.name = "DoorHole"
-#    door_hole.scale = scale
-#    bool_mod = wall.modifiers.new(name="DoorBoolean", type='BOOLEAN')
-#    bool_mod.operation = 'DIFFERENCE'
-#    bool_mod.object = door_hole
-#    wall.data=wall.data.copy()
-#    bpy.context.view_layer.objects.active = wall
-#    bpy.ops.object.modifier_apply(modifier=bool_mod.name)
+def build_door(wall, location, scale):
+    bpy.ops.mesh.primitive_cube_add(size=2, location=location)
+    door_hole = bpy.context.active_object
+    door_hole.name = "DoorHole"
+    door_hole.scale = scale
+    bool_mod = wall.modifiers.new(name="DoorBoolean", type='BOOLEAN')
+    bool_mod.operation = 'DIFFERENCE'
+    bool_mod.object = door_hole
+    wall.data=wall.data.copy()
+    bpy.context.view_layer.objects.active = wall
+    bpy.ops.object.modifier_apply(modifier=bool_mod.name)
 
-#    bpy.data.objects.remove(door_hole, do_unlink=True)
-#    
-#wall = bpy.data.objects.get("Wall1")
+    bpy.data.objects.remove(door_hole, do_unlink=True)
+    
+#wall = bpy.data.objects.get("Wall2")
 #build_door(wall, location=(5, 1.5, 1), scale=(1, 0.8, 1))
-#wall = bpy.data.objects.get("Wall3")
-#build_door(wall, location=(-3, -3, 1), scale=(0.5, 0.5, 1))
-#build_door(wall, location=(-1, -3, 1), scale=(0.5, 0.5, 1))
+wall = bpy.data.objects.get("Wall3")
+build_door(wall, location=(1.32, -3.59, 1), scale=(0.5, 0.5, 1))
+build_door(wall, location=(1.32, -2.69, 1), scale=(0.5, 0.5, 1))

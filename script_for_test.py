@@ -79,10 +79,19 @@ layout_plan = {
 #            rotation_euler=cfg["rot"],
 #        )
 
-double_door_cabinet = bpy.context.scene.objects["double_door_cabinet"]
+#double_door_cabinet = bpy.context.scene.objects["double_door_cabinet"]
+#transformation(
+#    double_door_cabinet,
+#    location=(-2.865, 3.15, 0),
+#    dimensions=(0.45, 0.85, 1.8),
+#    rotation_euler=(0, 0, -np.deg2rad(90))
+#)
+
+double_door_cabinet = bpy.context.scene.objects["storage_cabinet"]
 transformation(
     double_door_cabinet,
-    location=(-3.32, 3.15, 0),
-    dimensions=(0.45, 0.85, 1.8),
+    location=(-1.94, 3.15, 0),
+    dimensions=(0.45, 1, 1.8),
     rotation_euler=(0, 0, -np.deg2rad(90))
 )
+
